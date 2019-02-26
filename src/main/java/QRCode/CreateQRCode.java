@@ -36,15 +36,16 @@ public class CreateQRCode {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static String readQRCode(String filePath, String charset, Map hintMap) throws FileNotFoundException, IOException, NotFoundException {
+	public static String readQRCode(String filePath, String charset, Map hintMap)
+			throws FileNotFoundException, IOException, NotFoundException {
 
-			BinaryBitmap binaryBitmap = new BinaryBitmap(
-					new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(new FileInputStream(filePath)))));
-			Result qrCodeResult = new MultiFormatReader().decode(binaryBitmap, hintMap);
-			return qrCodeResult.getText();
+		BinaryBitmap binaryBitmap = new BinaryBitmap(
+				new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(new FileInputStream(filePath)))));
+		Result qrCodeResult = new MultiFormatReader().decode(binaryBitmap, hintMap);
+		return qrCodeResult.getText();
 
 	}
-	
+
 	public void TextToQR(String data, String pathFile, String nameImage) throws WriterException, IOException {
 		// String data = "Super Pig...";
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
