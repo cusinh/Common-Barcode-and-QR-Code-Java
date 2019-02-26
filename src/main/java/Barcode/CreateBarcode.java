@@ -22,7 +22,7 @@ import com.google.zxing.common.HybridBinarizer;
 
 public class CreateBarcode {
 
-	public static void createImageBarcode(String imageName, String stringGenerateBarcode, String pathFile) {
+	public boolean createImageBarcode(String imageName, String stringGenerateBarcode, String pathFile) {
 		try {
 			Code128Bean code128 = new Code128Bean();
 			code128.setHeight(15f);
@@ -37,19 +37,20 @@ public class CreateBarcode {
 			canvas.finish();
 
 			// write to png file
-			FileOutputStream fos = new FileOutputStream(pathFile + imageName);
+			FileOutputStream fos = new FileOutputStream(pathFile + "\\" + imageName);
 			fos.write(baos.toByteArray());
 			fos.flush();
 			fos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return true;
 	}
 
-	public static String createImageToCode(String imageName, String pathFile) {
+	public String createImageToCode(String imageName, String pathFile) {
 		String result1 = null;
 		try {
-			InputStream barCodeInputStream = new FileInputStream(pathFile + imageName);
+			InputStream barCodeInputStream = new FileInputStream(pathFile + "\\" + imageName);
 			BufferedImage barCodeBufferedImage = ImageIO.read(barCodeInputStream);
 
 			LuminanceSource source = new BufferedImageLuminanceSource(barCodeBufferedImage);
@@ -61,8 +62,5 @@ public class CreateBarcode {
 			e.printStackTrace();
 		}
 		return result1;
-	}
-	public static void main(String[] args) {
-		
 	}
 }
