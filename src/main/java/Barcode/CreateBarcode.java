@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
@@ -20,10 +21,8 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 
 public class CreateBarcode {
-	String pathFile = "C:\\Users\\Sinh\\Desktop\\";
 
-	public static void createImageBarcode(String image_name, String myString, String pathFile) {
-
+	public static void createImageBarcode(String imageName, String stringGenerateBarcode, String pathFile) {
 		try {
 			Code128Bean code128 = new Code128Bean();
 			code128.setHeight(15f);
@@ -34,15 +33,15 @@ public class CreateBarcode {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			BitmapCanvasProvider canvas = new BitmapCanvasProvider(baos, "image/x-png", 300,
 					BufferedImage.TYPE_BYTE_BINARY, false, 0);
-			code128.generateBarcode(canvas, myString);
+			code128.generateBarcode(canvas, stringGenerateBarcode);
 			canvas.finish();
 
 			// write to png file
-			FileOutputStream fos = new FileOutputStream(pathFile + image_name);
+			FileOutputStream fos = new FileOutputStream(pathFile + imageName);
 			fos.write(baos.toByteArray());
 			fos.flush();
 			fos.close();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -62,5 +61,8 @@ public class CreateBarcode {
 			e.printStackTrace();
 		}
 		return result1;
+	}
+	public static void main(String[] args) {
+		
 	}
 }

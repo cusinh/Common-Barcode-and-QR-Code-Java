@@ -26,15 +26,6 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class CreateQRCode {
 
-	@SuppressWarnings("unchecked")
-	public static String InputImage(String filePath) throws FileNotFoundException, NotFoundException, IOException {
-		String charset = "utf-8"; // or "ISO-8859-1"
-		@SuppressWarnings("rawtypes")
-		Map hintMap = new HashMap();
-		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-		return readQRCode(filePath, charset, hintMap);
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static String readQRCode(String filePath, String charset, Map hintMap)
 			throws FileNotFoundException, IOException, NotFoundException {
@@ -46,24 +37,22 @@ public class CreateQRCode {
 
 	}
 
-	public void TextToQR(String data, String pathFile, String nameImage) throws WriterException, IOException {
-		// String data = "Super Pig...";
+	public static void TextToQR(String data, String pathFile, String nameImage) throws WriterException, IOException {
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
 		BitMatrix matrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 200, 200);
 
 		// Write to file image
-		String outputFile = pathFile + nameImage + ".jpg";
+		String outputFile = pathFile + "\\" + nameImage + ".jpg";
 		Path path = FileSystems.getDefault().getPath(outputFile);
 		MatrixToImageWriter.writeToPath(matrix, "PNG", path);
 		System.out.println("QR Code created!");
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public String QRToText(String filePath) throws FileNotFoundException, NotFoundException, IOException {
+	public static String QRToText(String filePath) throws FileNotFoundException, NotFoundException, IOException {
 		String charset = "utf-8";
 		Map hintMap = new HashMap();
 		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 		return readQRCode(filePath, charset, hintMap);
 	}
-
 }
